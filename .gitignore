@@ -1,5 +1,6 @@
 # Proprietary firmware and generated analysis output must not enter source control.
-references/Project-Sirius/Original_Firmware.bin
+# Local public-reference clone and proprietary firmware stay outside this repository.
+references/Project-Sirius/
 references/keychain-camera-plus/dumps/
 work/
 *.bin

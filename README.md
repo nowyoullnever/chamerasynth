@@ -106,3 +106,19 @@ ranges, metadata, updater behavior, and external recovery remain unrecovered.
 it requires an evidence-backed manifest and cannot create an installation
 package. See `docs/phase6_device_poc_plan.md`.
 
+## Phase 7A recovered BEEP resource boundary
+
+Against a verified, ignored local source copy, Phase 7A recovered the embedded
+resource-table entry for `BEEPWAV`: source file `0x121e00..0x122dff`, a
+0x1000-byte sector allocation containing a 4,076-byte 11,025 Hz/16-bit/mono
+RIFF/WAVE and 20 bytes of `0xff` padding. The selector path is
+`0x1e844(5) -> BEEP handle`. `tools/phase7a_resource_tool.py` can inspect that
+table and produce an equal-size, low-amplitude offline candidate with a
+byte-range/restoration proof. It cannot create an update package and all image
+and WAV outputs remain ignored locally.
+
+No SD resource-override path, updater acceptance rule, or external recovery
+method is proven. Physical installation is **NO-GO**. See
+`docs/phase7a_audio_resource_layout.md`, `docs/phase7a_sd_resource_override.md`,
+`docs/phase7a_update_compatibility.md`, and `docs/phase7a_device_test_readiness.md`.
+

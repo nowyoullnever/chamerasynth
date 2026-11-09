@@ -84,3 +84,16 @@ The proprietary stock firmware and third-party reference checkouts are not
 distributed in this repository. Supply an authorized local copy of the stock
 image only when running the offline inspection or Ghidra reproduction steps.
 
+## Phase 6 host integration boundary
+
+`firmware/synth/` and `firmware/hal/` now provide a host-testable synth
+application and opaque-buffer audio HAL contract. They do not contain a stock
+audio ABI, hardware register, firmware address, firmware patch, or runnable
+device payload. The host model preserves a delivered `0x5025 -> 0x108` update
+relay and returns for stock cleanup; it does not identify the event producer.
+
+The compact Ghidra exports in phase result archives establish the audio path
+only through `0x12f0c -> 0x133f0 -> *(state + 8)`. An authorized firmware
+image is required to recover that backend or any safe application hook. See
+`docs/phase6_*.md` for evidence boundaries and the current integration gate.
+

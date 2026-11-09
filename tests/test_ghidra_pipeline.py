@@ -16,6 +16,7 @@ PHASE4_DRIVER_GRAPH = ROOT / "work" / "phase4-driver-tail" / "driver_tail_graph.
 
 
 class GhidraPipelineTests(unittest.TestCase):
+    @unittest.skipUnless(SOURCE.is_file(), "authorized proprietary firmware is required for source-identity preparation")
     def test_preparation_locks_identity_and_never_mutates_source(self):
         before = SOURCE.read_bytes()
         self.assertEqual(len(before), SOURCE_SIZE)

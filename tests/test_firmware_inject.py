@@ -95,6 +95,7 @@ class FirmwareInjectTests(unittest.TestCase):
         with self.assertRaises(ValidationError):
             inspect_update_filename("JH_5408bad.bin")
 
+    @unittest.skipUnless(Path("references/Project-Sirius/Original_Firmware.bin").is_file(), "authorized proprietary firmware is required for protected-range byte checks")
     def test_committed_manifest_protects_observed_updater_main(self):
         image = Path("references/Project-Sirius/Original_Firmware.bin").read_bytes()
         manifest = tomllib.loads(Path("patches/manifest.example.toml").read_text(encoding="utf-8"))
@@ -104,6 +105,7 @@ class FirmwareInjectTests(unittest.TestCase):
         with self.assertRaises(ValidationError):
             patch_bytes(manifest, image)
 
+    @unittest.skipUnless(Path("references/Project-Sirius/Original_Firmware.bin").is_file(), "authorized proprietary firmware is required for protected-range byte checks")
     def test_committed_manifest_protects_boot_to_event_loop_and_camera_dispatch(self):
         image = Path("references/Project-Sirius/Original_Firmware.bin").read_bytes()
         base = tomllib.loads(Path("patches/manifest.example.toml").read_text(encoding="utf-8"))

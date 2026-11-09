@@ -12,6 +12,7 @@ GRAPH = ROOT / "work" / "phase4-driver-tail" / "driver_tail_graph.json"
 
 
 class TailLayoutAuditTests(unittest.TestCase):
+    @unittest.skipUnless(SOURCE.is_file(), "authorized proprietary firmware is required for tail-byte audit")
     def test_tail_audit_preserves_identity_and_marks_all_exported_targets(self):
         before = SOURCE.read_bytes()
         result = audit(SOURCE, GRAPH, 0x20)
@@ -22,6 +23,7 @@ class TailLayoutAuditTests(unittest.TestCase):
         self.assertTrue(all(item["target_bytes_all_ff"] for item in result["direct_reference_audit"]))
         self.assertTrue(any(run["file_offset"] == 0x1AEE00 for run in result["ff_runs_at_least"]["runs"]))
 
+    @unittest.skipUnless(SOURCE.is_file(), "authorized proprietary firmware is required for tail-byte audit")
     def test_audit_result_is_json_serializable(self):
         result = audit(SOURCE, GRAPH, 0x100)
         with tempfile.TemporaryDirectory() as directory:

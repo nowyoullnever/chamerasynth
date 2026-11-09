@@ -97,3 +97,12 @@ only through `0x12f0c -> 0x133f0 -> *(state + 8)`. An authorized firmware
 image is required to recover that backend or any safe application hook. See
 `docs/phase6_*.md` for evidence boundaries and the current integration gate.
 
+## Phase 6 device-POC preparation
+
+The recommended first physical candidate is a stock audio-resource-only change,
+not a hook or generated PCM experiment. It is not approved: resource byte
+ranges, metadata, updater behavior, and external recovery remain unrecovered.
+`tools/resource_replacement_prototype.py` is an analysis-only copy validator;
+it requires an evidence-backed manifest and cannot create an installation
+package. See `docs/phase6_device_poc_plan.md`.
+

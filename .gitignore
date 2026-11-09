@@ -1,0 +1,9 @@
+# Proprietary firmware and generated analysis output must not enter source control.
+references/Project-Sirius/Original_Firmware.bin
+references/keychain-camera-plus/dumps/
+work/
+*.bin
+*.img
+*.rom
+__pycache__/
+

@@ -1,0 +1,56 @@
+{
+  "mapping": "file offset = logical VA + 0x200; hypothesis only",
+  "authority": "static Ghidra disassembly; no flash command executed",
+  "operations": [
+    {
+      "name": "erase_64k",
+      "entry_va": "0x0003060c",
+      "entry_file_offset": "0x03080c",
+      "call_chain": ["0x00021170", "0x00001b20", "0x0003060c"],
+      "opcode": "0xd8",
+      "address_expression": "arg & 0xffff0000",
+      "block_bytes": 65536,
+      "confidence": "strong-static"
+    },
+    {
+      "name": "write_enable",
+      "entry_va": "0x0003028c",
+      "entry_file_offset": "0x03048c",
+      "opcode": "0x06",
+      "confidence": "strong-static"
+    },
+    {
+      "name": "program_256",
+      "entry_va": "0x00030800",
+      "entry_file_offset": "0x030a00",
+      "call_chain": ["0x00021170", "0x00001aec", "0x00030800"],
+      "opcode": "0x02",
+      "address_expression": "arg & 0xffffff00",
+      "transfer_bytes": 256,
+      "confidence": "strong-static"
+    },
+    {
+      "name": "verify_read_256",
+      "entry_va": "0x000306b4",
+      "entry_file_offset": "0x0308b4",
+      "call_chain": ["0x00021170", "0x0000119c", "0x000306b4"],
+      "opcode": "0x03",
+      "address_expression": "arg & 0xffffff00",
+      "transfer_bytes": 256,
+      "confidence": "strong-static"
+    },
+    {
+      "name": "post_update_erase_request",
+      "site_va": "0x000215b4",
+      "site_file_offset": "0x0217b4",
+      "original_hex": "400b8ae25881ffeb",
+      "address_expression": "r10 + 0x10000",
+      "target": "erase_64k wrapper 0x00001b20",
+      "confidence": "strong-static"
+    }
+  ],
+  "limitations": [
+    "Physical flash capacity and address wrapping are unresolved.",
+    "This table does not establish update compatibility or safe recovery."
+  ]
+}

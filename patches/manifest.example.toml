@@ -1,0 +1,47 @@
+# Phase 2 example only. It deliberately contains no enabled patch and cannot
+# produce a modified firmware image. File offsets are never runtime addresses.
+schema_version = 1
+status = "analysis-only"
+
+[source]
+size = 0x200000
+sha256 = "720ed0b65c91b149b0916498732b0ecf40227736ef5e3c126c487a7b5253436c"
+
+[mapping]
+payload_file_offset = 0x200
+payload_runtime_base = 0x00000000 # hypothesis; not a verified runtime mapping
+instruction_alignment = 4
+runtime_mapping_confidence = "unverified"
+
+[[protected_ranges]]
+name = "SPII header, vectors, reset, and early A32 startup"
+offset = 0x000000
+size = 0x002e00
+
+[[protected_ranges]]
+name = "boot-path dispatch into the shared event loop (analysis evidence)"
+offset = 0x02dcac
+size = 0x000300
+
+[[protected_ranges]]
+name = "shared event loop, camera-state dispatch, and updater dispatch (analysis evidence)"
+offset = 0x025868
+size = 0x000180
+
+[[protected_ranges]]
+name = "SD update UI / candidate updater area"
+offset = 0x020000
+size = 0x002000
+
+[[injection_regions]]
+name = "erased-tail-candidate"
+offset = 0x1aee00
+size = 0x51200
+expected_fill = "ff"
+trust = "unverified"
+note = "Phase 5 audited 26 direct Ghidra references to FF tail bytes; reference type, partition ownership, execution mapping, and update behavior remain unverified."
+
+# An experimental-qualified manifest must explicitly declare reviewed insertion
+# regions and every patch's expected original bytes. Do not add one until the
+# Phase 2 hook/update gates documented in docs/ are satisfied.
+
